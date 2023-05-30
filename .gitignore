@@ -4,3 +4,6 @@
 /.luarc.json
 
 /.quarto/
+_book/*
+_site/*
+_crossrefs
