@@ -12,8 +12,4 @@ book:
 filters:
   - crossref-listings
 
-crossref_listings:
-  - exm
-  - def
-
 format: html

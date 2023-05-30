@@ -88,6 +88,6 @@ The inclusion of `_crossrefs` in the `contents` property above seems superfluous
 
 The cross-reference tables are created using the [listings](https://quarto.org/docs/websites/website-listings.html) mechanism of Quarto websites and can be extensively customized in exactly the same way.
 
-::::{#exm-other description="On the other page" type=foo}
+::::{#exm-other description="On another page" type=foo}
 Another pointless non-example.
 ::::

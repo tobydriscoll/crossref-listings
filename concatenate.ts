@@ -14,12 +14,12 @@ for (const ext of exts) {
     }
     
     if (matchingFiles.length === 0) {
-        console.log('No matching files found.');
+        // console.log('No matching files found.');
         Deno.exit();
     }
     else {
-        console.log(ext)
-        console.log(matchingFiles)
+        // console.log(ext)
+        // console.log(matchingFiles)
     }
     
     // Concatenate the matching files
@@ -33,13 +33,12 @@ for (const ext of exts) {
     // Write the concatenated content to the output file
         const outputFile = ext.concat('.yml');
         await Deno.writeTextFile(outputFile, concatenatedContent);
-
-        console.debug('Concatenated content written to', outputFile);
+        // console.debug('Concatenated content written to', outputFile);
     }
 
     // Delete the matching files
     for (const file of matchingFiles) {
         Deno.remove(file);
-        console.debug('Deleted', file);
+        // console.debug('Deleted', file);
     }
 }
