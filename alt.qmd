@@ -1,0 +1,62 @@
+---
+title: "Demo of listing-crossrefs"
+listing: 
+  - id: Examples
+    contents: 
+      - _crossrefs/exm.yml
+      - _crossrefs
+    type: table
+    sort: false
+    page-size: 15
+    fields: [description, type, link]
+  - id: Definitions
+    contents: 
+      - _crossrefs/def.yml
+      - _crossrefs
+    type: table
+    sort: false
+    fields: [Title, link]
+  - id: Figures
+    type: grid
+    contents: 
+      - _crossrefs/fig.yml
+      - _crossrefs
+---
+# Demo page
+
+## Description
+
+This filter creates listings of cross-referenced items.
+
+## Table of examples
+
+This directory of examples is updated each time the website is rendered.
+
+:::{#Examples}
+:::
+
+::::{#exm-example1 description="A fine example" type=foo}
+## Good example
+This is example 1.
+::::
+
+:::{#def-definition type=bar}
+## Confusion
+Look, a definition.
+:::
+
+Here is a crossref to @exm-example1.
+
+::::{#exm-example2 type=bar}
+This is the second example.
+::::
+
+## Table of definitions 
+
+:::{#Definitions}
+:::
+
+## Figures
+
+:::{#Figures}
+:::

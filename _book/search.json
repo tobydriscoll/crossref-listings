@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Demo",
+    "section": "",
+    "text": "1 Demo"
+  },
+  {
+    "objectID": "index.html#description",
+    "href": "index.html#description",
+    "title": "Demo",
+    "section": "1.1 Description",
+    "text": "1.1 Description\nThis filter automates the creation of listings of cross-referenced items. Say you have a book project over multiple files, and it includes many formal example divs, such as the following.\n\nExample 1.1 (Good example) This is example 1.\n\nThere may be examples on pages throughout the book. Your readers might like to have a one-stop summary of all of them. But this is tedious and fragile for you to do by hand.\nInstead, you could simply have the following.\n\n1.1.1 Table of examples\nThis directory of examples is updated each time the website is rendered.\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          link\n        \n         \n          type\n        \n         \n          Description\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDescription\n\n\ntype\n\n\nlink\n\n\n\n\n\n\nCustom fields\n\n\nactual\n\n\nExample 2.1\n\n\n\n\nCreating a listing\n\n\nactual\n\n\nExample 2.2\n\n\n\n\nOn the other page\n\n\nfoo\n\n\nExample 2.3\n\n\n\n\nA fine example\n\n\nfoo\n\n\nExample 1.1\n\n\n\n\nPointless example\n\n\nbar\n\n\nExample 1.2\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#other-crossref-types",
+    "href": "index.html#other-crossref-types",
+    "title": "Demo",
+    "section": "1.2 Other crossref types",
+    "text": "1.2 Other crossref types\nThe same mechanism works for definitions, theorems, and similar divs.\n\nDefinition 1.1 A theorem-like div is a cross-referenceable named block in a Quarto document, as listed in the Quarto guide.\n\n\nExample 1.2 This is the second example.\n\nThe attributes description and type are included as columns in the table of examples, so that information appears there for this example."
+  },
+  {
+    "objectID": "usage.html#project-configuration",
+    "href": "usage.html#project-configuration",
+    "title": "2  Usage",
+    "section": "2.1 Project configuration",
+    "text": "2.1 Project configuration\nIn the _quarto.yml file you need to include something like the following:\nproject:\n  type: book\n  pre-render: clean.ts\n  post-render: concatenate.ts\n\nfilters:\n  - crossref-listings\n\ncrossref_listings:\n  - exm\n  - def\nThe post-render script is required, as is the filters value. The crossref_listings entry is a list of theorem-like prefixes to be collected."
+  },
+  {
+    "objectID": "usage.html#custom-fields",
+    "href": "usage.html#custom-fields",
+    "title": "2  Usage",
+    "section": "2.2 Custom fields",
+    "text": "2.2 Custom fields\nWhen you create a theorem-like div, you can give it extra attributes that Quarto ignores. These can then be referenced as columns in your listings table.\n\nExample 2.1 Example 1.1 was created with the following code:\n::::{#exm-example1 description=\"A fine example\" type=foo}\n## Good example\nThis is example 1.\n::::"
+  },
+  {
+    "objectID": "usage.html#creating-cross-reference-listings",
+    "href": "usage.html#creating-cross-reference-listings",
+    "title": "2  Usage",
+    "section": "2.3 Creating cross-reference listings",
+    "text": "2.3 Creating cross-reference listings\nThe tables of cross references are created using the (listing)[https://quarto.org/docs/websites/website-listings.html] mechanism of Quarto websites. All this extension does is to collect the relevant information in files in the _crossrefs subdirectory. You just include the one you want in the contents metadata of listing.\n\nExample 2.2 To create the definition table below, the following was put into the metadata of this file:\nlisting:\n  - id: Definitions\n    contents: \n      - _crossrefs/def.yml\n      - _crossrefs\n    type: table\n    fields: [title, link]\nThen, at the place where the table is to appear, we put\n:::{#Definitions}\n:::\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Title\n        \n         \n          link\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nlink\n\n\n\n\n\n\nTheorem-like divs\n\n\nDefinition 1.1\n\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe inclusion of _crossrefs in the contents property above seems superfluous, but the Quarto listing mechanism seems to ignore a file of listing info unless it also has a directory to scan."
+  },
+  {
+    "objectID": "usage.html#customizing-the-appearance",
+    "href": "usage.html#customizing-the-appearance",
+    "title": "2  Usage",
+    "section": "2.4 Customizing the appearance",
+    "text": "2.4 Customizing the appearance\nThe cross-reference tables are created using the listings mechanism of Quarto websites and can be extensively customized in exactly the same way.\n\nExample 2.3 Another pointless non-example."
+  }
+]

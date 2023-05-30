@@ -1,0 +1,93 @@
+---
+listing: 
+  - id: Definitions
+    contents: 
+      - _crossrefs/def.yml
+      - _crossrefs
+    type: table
+    sort: false
+    fields: [title, link]
+---
+# Usage
+
+This filter is intended for Quarto book projects, though it could be used in any website project. 
+
+The main catch is that (like LaTeX) the included tabulated information is based on the *previous* rendering, not the current one. 
+
+::: {.callout-important}
+You must render the entire project twice in order to get a complete update.
+:::
+
+If you use Quarto in preview mode, it will incrementally render only pages that have changed. Unfortunately,only the rendered pages will be captured in the cross-reference tables. So you should ignore how the tables look while editing in preview, then run `quarto render` twice to get the information restored.
+
+## Project configuration
+
+In the `_quarto.yml` file you need to include something like the following:
+
+```markdown
+project:
+  type: book
+  pre-render: clean.ts
+  post-render: concatenate.ts
+
+filters:
+  - crossref-listings
+
+crossref_listings:
+  - exm
+  - def
+```
+
+The `post-render` script is required, as is the `filters` value. The `crossref_listings` entry is a list of [theorem-like prefixes](https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs) to be collected.
+
+## Custom fields
+
+When you create a theorem-like div, you can give it extra attributes that Quarto ignores. These can then be referenced as columns in your listings table.
+
+::::{#exm-usage-fields description="Custom fields" type=actual}
+@exm-example1 was created with the following code:
+
+```markdown
+::::{#exm-example1 description="A fine example" type=foo}
+## Good example
+This is example 1.
+::::
+```
+::::
+
+## Creating cross-reference listings
+
+The tables of cross references  are created using the (listing)[https://quarto.org/docs/websites/website-listings.html] mechanism of Quarto websites. All this extension does is to collect the relevant information in files in the `_crossrefs` subdirectory. You just include the one you want in the `contents` metadata of `listing`.
+
+::::{#exm-usage-create description="Creating a listing" type=actual}
+To create the definition table below, the following was put into the metadata of this file:
+
+```markdown
+listing:
+  - id: Definitions
+    contents: 
+      - _crossrefs/def.yml
+      - _crossrefs
+    type: table
+    fields: [title, link]
+```
+Then, at the place where the table is to appear, we put 
+```markdown
+:::{#Definitions}
+:::
+```
+:::{#Definitions}
+:::
+::::
+
+::: {.callout-important}
+The inclusion of `_crossrefs` in the `contents` property above seems superfluous, but the Quarto listing mechanism seems to ignore a file of listing info unless it also has a directory to scan.
+:::
+
+## Customizing the appearance
+
+The cross-reference tables are created using the [listings](https://quarto.org/docs/websites/website-listings.html) mechanism of Quarto websites and can be extensively customized in exactly the same way.
+
+::::{#exm-other description="On the other page" type=foo}
+Another pointless non-example.
+::::

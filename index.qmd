@@ -1,0 +1,51 @@
+---
+title: Demo
+listing: 
+  - id: Examples
+    contents: 
+      - _crossrefs/exm.yml
+      - _crossrefs
+    type: table
+    sort: false
+    page-size: 15
+    fields: [description, type, link]
+---
+
+# Demo
+
+## Description
+
+This filter automates the creation of listings of cross-referenced items. Say you have a book project over multiple files, and it includes many formal `example` divs, such as the following.
+
+::::{#exm-example1 description="A fine example" type=foo}
+## Good example
+This is example 1.
+::::
+
+There may be examples on pages throughout the book. Your readers might like to have a one-stop summary of all of them. But this is tedious and fragile for you to do by hand.
+
+Instead, you could simply have the following.
+
+### Table of examples
+
+This directory of examples is updated each time the website is rendered.
+
+:::{#Examples}
+:::
+
+## Other crossref types
+
+The same mechanism works for definitions, theorems, and similar divs. 
+
+:::{#def-definition title="Theorem-like divs" type=bar}
+A **theorem-like div** is a cross-referenceable named block in a Quarto document, as listed in [the Quarto guide](https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs).
+:::
+
+::::{#exm-example2 description="Pointless example" type=bar}
+This is the second example. 
+::::
+
+
+
+The attributes `description` and `type` are included as columns in the table of examples, so that information appears there for this example.
+

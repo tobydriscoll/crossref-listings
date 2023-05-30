@@ -1,0 +1,19 @@
+project:
+  type: book
+  post-render: concatenate.ts
+
+book:
+  title: Demo
+  chapters: 
+    - index.qmd
+    - usage.qmd
+    - limitations.qmd
+
+filters:
+  - crossref-listings
+
+crossref_listings:
+  - exm
+  - def
+
+format: html
