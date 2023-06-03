@@ -7,17 +7,21 @@ listing:
       - _crossrefs
     type: table
     sort: false
-    page-size: 15
+    page-size: 20
     fields: [description, type, link]
+    field-display-names: 
+      description: Description
+      type: Type
+      link: Link
 ---
 
-# Demo
+# Demo of crossref-listings
 
 ## Description
 
 This filter automates the creation of listings of cross-referenced items. Say you have a book project over multiple files, and it includes many formal `example` divs, such as the following.
 
-::::{#exm-example1 description="A fine example" type=foo}
+::::{#exm-example1 description="A fine example" type=Code}
 ## Good example
 This is example 1.
 ::::
@@ -26,26 +30,24 @@ There may be examples on pages throughout the book. Your readers might like to h
 
 Instead, you could simply have the following.
 
-### Table of examples
+### Table of examples {.unnumbered}
 
-This directory of examples is updated each time the website is rendered.
+This directory of examples is updated each time the website is rendered. Note that it includes material from the entire project, not just this page.
 
 :::{#Examples}
 :::
 
-## Other crossref types
+## Installation {#sec-install}
 
-The same mechanism works for definitions, theorems, and similar divs. 
+At the command line and in the project's root directory, enter 
 
-:::{#def-definition title="Theorem-like divs" type=bar}
-A **theorem-like div** is a cross-referenceable named block in a Quarto document, as listed in [the Quarto guide](https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs).
-:::
+```bash
+quarto install extension tobydriscoll/crossref-listings
+```
 
-::::{#exm-example2 description="Pointless example" type=bar}
-This is the second example. 
-::::
+This has to be done for each project where you want to use the extension. 
 
+### Optional (recommended) {.unnumbered}
 
-
-The attributes `description` and `type` are included as columns in the table of examples, so that information appears there for this example.
+If you are comfortable installing Python on your system, then install the `quarto`, `pandoc`, and `yaml` packages to use a faster and more convenient method with the extension.
 

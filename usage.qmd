@@ -12,54 +12,87 @@ listing:
 
 This filter is intended for Quarto book projects, though it could be used in any website project. 
 
-The main catch is that (like LaTeX) the included tabulated information is based on the *previous* rendering, not the current one. 
-
-::: {.callout-important}
-You must render the entire project twice in order to get a complete update.
-:::
-
-If you use Quarto in preview mode, it will incrementally render only pages that have changed. Unfortunately,only the rendered pages will be captured in the cross-reference tables. So you should ignore how the tables look while editing in preview, then run `quarto render` twice to get the information restored.
-
 ## Project configuration
 
-In the `_quarto.yml` file you need to include something like the following:
+### Method 1
+
+If you installed the Python packages as described in @sec-install, then this is the preferred method. 
+
+In the `_quarto.yml` file, include the following:
 
 ```markdown
 project:
   type: book
-  pre-render: clean.ts
+  pre-render: find_crossrefs.py
+```
+::: {.callout-note}
+If you use Quarto in preview mode, it will incrementally render only pages that have changed, and it will not run the pre-render script when doing so. So the crossref tables will not change while editing in preview mode. After exiting preview, run `quarto render` to get the information updated.
+:::
+
+### Method 2
+
+The chief advantage of this method is that it has no dependencies beyond the Quarto installation.
+
+In the `_quarto.yml` file, include the following:
+
+```markdown
+project:
+  type: book
   post-render: concatenate.ts
 
 filters:
   - crossref-listings
-
-crossref_listings:
-  - exm
-  - def
 ```
 
-The `post-render` script is required, as is the `filters` value. The `crossref_listings` entry is a list of [theorem-like prefixes](https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs) to be collected.
+::: {.callout-important}
+The filter dumps all of the cross-references into separate files for each page as the project is rendered. These are concatenated together by the post-render script. Thus, the project has to be fully rendered a second time in order for the updated crossref information to be loaded for display.
+:::
 
-## Custom fields
+::: {.callout-note}
+I don't know a way to control the page order in which the crossrefs will be assembled. That's because each page is its own world inside the filter. Nor can you simply sort on the link name, because "Example 1.10" will come before "Example 1.2". A workaround is to add a chapter number to the attributes for sorting; within each chapter, the ordering should be correct, as the listing sort algorithm appears to be a stable one.
+:::
 
-When you create a theorem-like div, you can give it extra attributes that Quarto ignores. These can then be referenced as columns in your listings table.
+::: {.callout-tip}
+If things get into a hopeless state, it's okay to wipe everything in the `_crossrefs` directory and render twice from scratch.
+:::
 
-::::{#exm-usage-fields description="Custom fields" type=actual}
+::: {.callout-note}
+If you use Quarto in preview mode, it will incrementally render only pages that have changed. Unfortunately,only the rendered pages will be captured in the cross-reference tables. So you should ignore how the tables look while editing in preview, then run `quarto render` twice to get the information restored.
+:::
+
+## Crossref types
+
+The listing mechanism works for definitions, theorems, and similar divs. 
+
+:::{#def-definition title="Theorem-like divs" type=bar}
+A **theorem-like div** is a cross-referenceable named block in a Quarto document, as listed in [the Quarto guide](https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs).
+:::
+
+## Custom fields 
+
+You can put as many attributes as you like, including zero, in the header line defining the example div. These create custom fields that can be included as columns in the crossref table. Quarto otherwise ignores them. 
+
+
+::::{#exm-usage-fields description="Custom fields" type=Code}
 @exm-example1 was created with the following code:
 
 ```markdown
-::::{#exm-example1 description="A fine example" type=foo}
+::::{#exm-example1 description="A fine example" type=Code}
 ## Good example
 This is example 1.
 ::::
 ```
 ::::
 
-## Creating cross-reference listings
+::: {.callout-tip}
+The crossref attributes will be in the HTML as classes, so you can target them with CSS if you like. 
+:::
 
-The tables of cross references  are created using the (listing)[https://quarto.org/docs/websites/website-listings.html] mechanism of Quarto websites. All this extension does is to collect the relevant information in files in the `_crossrefs` subdirectory. You just include the one you want in the `contents` metadata of `listing`.
+## Creating a listing
 
-::::{#exm-usage-create description="Creating a listing" type=actual}
+The tables of cross references  are created using the (listing)[https://quarto.org/docs/websites/website-listings.html] mechanism of Quarto websites. All the extension does is to collect the relevant information in files in the `_crossrefs` subdirectory. You just include the one you want in the `contents` metadata of `listing`.
+
+::::{#exm-usage-create description="Creating a listing" type=Metadata}
 To create the definition table below, the following was put into the metadata of this file:
 
 ```markdown
@@ -88,6 +121,6 @@ The inclusion of `_crossrefs` in the `contents` property above seems superfluous
 
 The cross-reference tables are created using the [listings](https://quarto.org/docs/websites/website-listings.html) mechanism of Quarto websites and can be extensively customized in exactly the same way.
 
-::::{#exm-other description="On another page" type=foo}
-Another pointless non-example.
+::::{#exm-other description="On another page" type=ignore}
+A pointless non-example.
 ::::
