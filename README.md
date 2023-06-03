@@ -1,4 +1,4 @@
-# Crossref-listings extension For Quarto
+# Crossref-listings extension for Quarto
 
 This filter automates the creation of listings of cross-referenced items such as theorems, definitions, examples, etc.
 
