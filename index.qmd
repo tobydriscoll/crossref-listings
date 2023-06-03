@@ -14,7 +14,6 @@ listing:
       type: Type
       link: Link
 ---
-
 # Demo of crossref-listings
 
 ## Description
@@ -39,6 +38,20 @@ This directory of examples is updated each time the website is rendered. Note th
 
 ## Installation {#sec-install}
 
+### Method 1 (recommended)
+
+Install the Python packages `quarto`, `pandoc`, and `yaml`. 
+
+To create your Quarto project, enter the following at the command line and follow the prompts:
+
+```bash
+quarto use template tobydriscoll/crossref-listings
+```
+
+If you want to add the capability to an existing project, you need the file `find_crossrefs.py` and the subdirectory `_extensions`. 
+
+### Method 2 (no dependencies)
+
 At the command line and in the project's root directory, enter 
 
 ```bash
@@ -46,8 +59,3 @@ quarto install extension tobydriscoll/crossref-listings
 ```
 
 This has to be done for each project where you want to use the extension. 
-
-### Optional (recommended) {.unnumbered}
-
-If you are comfortable installing Python on your system, then install the `quarto`, `pandoc`, and `yaml` packages to use a faster and more convenient method with the extension.
-

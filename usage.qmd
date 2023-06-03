@@ -44,8 +44,10 @@ filters:
   - crossref-listings
 ```
 
+The filter dumps all of the cross-references into separate files for each page as the project is rendered. These are concatenated together by the post-render script. As in LaTeX, this causes the cross-reference information to lag behind the rendering.
+
 ::: {.callout-important}
-The filter dumps all of the cross-references into separate files for each page as the project is rendered. These are concatenated together by the post-render script. Thus, the project has to be fully rendered a second time in order for the updated crossref information to be loaded for display.
+The project has to be fully rendered a second time in order for the updated crossref information to be loaded for display.
 :::
 
 ::: {.callout-note}
