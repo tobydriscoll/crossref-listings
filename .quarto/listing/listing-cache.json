@@ -1,0 +1,21 @@
+{
+  "listingMap": {
+    "index.qmd": [
+      "_crossrefs/exm.yml",
+      "_crossrefs",
+      "_crossrefs/def.yml",
+      "_crossrefs/fig.yml"
+    ],
+    "usage.qmd": [
+      "_crossrefs/def.yml",
+      "_crossrefs",
+      "_crossrefs/exm.yml"
+    ],
+    "alt.qmd": [
+      "_crossrefs/exm.yml",
+      "_crossrefs",
+      "_crossrefs/def.yml",
+      "_crossrefs/fig.yml"
+    ]
+  }
+}

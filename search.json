@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Demo",
+    "section": "",
+    "text": "1 Demo of crossref-listings"
+  },
+  {
+    "objectID": "index.html#description",
+    "href": "index.html#description",
+    "title": "Demo",
+    "section": "1.1 Description",
+    "text": "1.1 Description\nThis filter automates the creation of listings of cross-referenced items. Say you have a book project over multiple files, and it includes many formal example divs, such as the following.\n\nExample 1.1 (Good example) This is example 1.\n\nThere may be examples on pages throughout the book. Your readers might like to have a one-stop summary of all of them. But this is tedious and fragile for you to do by hand.\nInstead, you could simply have the following.\n\nTable of examples\nThis directory of examples is updated each time the website is rendered. Note that it includes material from the entire project, not just this page.\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Description\n        \n         \n          Link\n        \n         \n          Type\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nDescription\n\n\nType\n\n\nLink\n\n\n\n\n\n\nA fine example\n\n\nCode\n\n\nExample 1.1\n\n\n\n\nCustom fields\n\n\nCode\n\n\nExample 2.1\n\n\n\n\nCreating a listing\n\n\nMetadata\n\n\nExample 2.2\n\n\n\n\nOn another page\n\n\nignore\n\n\nExample 2.3\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#sec-install",
+    "href": "index.html#sec-install",
+    "title": "Demo",
+    "section": "1.2 Installation",
+    "text": "1.2 Installation\n\n1.2.1 Method 1 (recommended)\nInstall the Python packages quarto, pandoc, and yaml.\nTo create your Quarto project, enter the following at the command line and follow the prompts:\nquarto use template tobydriscoll/crossref-listings\nIf you want to add the capability to an existing project, you need the file find_crossrefs.py and the subdirectory _extensions.\n\n\n1.2.2 Method 2 (no dependencies)\nAt the command line and in the project’s root directory, enter\nquarto install extension tobydriscoll/crossref-listings\nThis has to be done for each project where you want to use the extension."
+  },
+  {
+    "objectID": "usage.html#project-configuration",
+    "href": "usage.html#project-configuration",
+    "title": "2  Usage",
+    "section": "2.1 Project configuration",
+    "text": "2.1 Project configuration\n\n2.1.1 Method 1\nIf you installed the Python packages as described in Section 1.2, then this is the preferred method.\nIn the _quarto.yml file, include the following:\nproject:\n  type: book\n  pre-render: find_crossrefs.py\n\n\n\n\n\n\nNote\n\n\n\nIf you use Quarto in preview mode, it will incrementally render only pages that have changed, and it will not run the pre-render script when doing so. So the crossref tables will not change while editing in preview mode. After exiting preview, run quarto render to get the information updated.\n\n\n\n\n2.1.2 Method 2\nThe chief advantage of this method is that it has no dependencies beyond the Quarto installation.\nIn the _quarto.yml file, include the following:\nproject:\n  type: book\n  post-render: concatenate.ts\n\nfilters:\n  - crossref-listings\nThe filter dumps all of the cross-references into separate files for each page as the project is rendered. These are concatenated together by the post-render script. As in LaTeX, this causes the cross-reference information to lag behind the rendering.\n\n\n\n\n\n\nImportant\n\n\n\nThe project has to be fully rendered a second time in order for the updated crossref information to be loaded for display.\n\n\n\n\n\n\n\n\nNote\n\n\n\nI don’t know a way to control the page order in which the crossrefs will be assembled. That’s because each page is its own world inside the filter. Nor can you simply sort on the link name, because “Example 1.10” will come before “Example 1.2”. A workaround is to add a chapter number to the attributes for sorting; within each chapter, the ordering should be correct, as the listing sort algorithm appears to be a stable one.\n\n\n\n\n\n\n\n\nTip\n\n\n\nIf things get into a hopeless state, it’s okay to wipe everything in the _crossrefs directory and render twice from scratch.\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you use Quarto in preview mode, it will incrementally render only pages that have changed. Unfortunately,only the rendered pages will be captured in the cross-reference tables. So you should ignore how the tables look while editing in preview, then run quarto render twice to get the information restored."
+  },
+  {
+    "objectID": "usage.html#crossref-types",
+    "href": "usage.html#crossref-types",
+    "title": "2  Usage",
+    "section": "2.2 Crossref types",
+    "text": "2.2 Crossref types\nThe listing mechanism works for definitions, theorems, and similar divs.\n\nDefinition 2.1 A theorem-like div is a cross-referenceable named block in a Quarto document, as listed in the Quarto guide."
+  },
+  {
+    "objectID": "usage.html#custom-fields",
+    "href": "usage.html#custom-fields",
+    "title": "2  Usage",
+    "section": "2.3 Custom fields",
+    "text": "2.3 Custom fields\nYou can put as many attributes as you like, including zero, in the header line defining the example div. These create custom fields that can be included as columns in the crossref table. Quarto otherwise ignores them.\n\nExample 2.1 Example 1.1 was created with the following code:\n::::{#exm-example1 description=\"A fine example\" type=Code}\n## Good example\nThis is example 1.\n::::\n\n\n\n\n\n\n\nTip\n\n\n\nThe crossref attributes will be in the HTML as classes, so you can target them with CSS if you like."
+  },
+  {
+    "objectID": "usage.html#creating-a-listing",
+    "href": "usage.html#creating-a-listing",
+    "title": "2  Usage",
+    "section": "2.4 Creating a listing",
+    "text": "2.4 Creating a listing\nThe tables of cross references are created using the (listing)[https://quarto.org/docs/websites/website-listings.html] mechanism of Quarto websites. All the extension does is to collect the relevant information in files in the _crossrefs subdirectory. You just include the one you want in the contents metadata of listing.\n\nExample 2.2 To create the definition table below, the following was put into the metadata of this file:\nlisting:\n  - id: Definitions\n    contents: \n      - _crossrefs/def.yml\n      - _crossrefs\n    type: table\n    fields: [title, link]\nThen, at the place where the table is to appear, we put\n:::{#Definitions}\n:::\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          link\n        \n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nTitle\n\n\nlink\n\n\n\n\n\n\nTheorem-like divs\n\n\nDefinition 2.1\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThe inclusion of _crossrefs in the contents property above seems superfluous, but the Quarto listing mechanism seems to ignore a file of listing info unless it also has a directory to scan."
+  },
+  {
+    "objectID": "usage.html#customizing-the-appearance",
+    "href": "usage.html#customizing-the-appearance",
+    "title": "2  Usage",
+    "section": "2.5 Customizing the appearance",
+    "text": "2.5 Customizing the appearance\nThe cross-reference tables are created using the listings mechanism of Quarto websites and can be extensively customized in exactly the same way.\n\nExample 2.3 A pointless non-example."
+  }
+]
