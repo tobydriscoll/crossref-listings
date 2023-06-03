@@ -1,13 +1,12 @@
 project:
   type: book
-  post-render: concatenate.ts
+  pre-render: find_crossrefs.py
 
 book:
   title: Demo
   chapters: 
     - index.qmd
     - usage.qmd
-    - limitations.qmd
 
 filters:
   - crossref-listings
